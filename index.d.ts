@@ -13,4 +13,5 @@ export = class Todite {
     constructor(private apiKey: string);
 
     public create({ name, completed, date }: Todo): Promise<Todo>;
+    public getAll(): Promise<Todo[]>;
 }
