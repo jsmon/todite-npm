@@ -116,4 +116,17 @@ export = class Todite {
         // Return the object like this so that `__v` isn't included (if you know a cleaner way to do this, feel free to submit a PR :D)
         return { _id: data._id, name: data.name, completed: data.completed, user: data.user, date: data.date };
     }
+
+    public async delete(id: string): Promise<void> {
+        const data: {
+            success?: true;
+            error?: ApiError;
+        } = await fetch(`https://todite.now.sh/api/v1/todo/${id}?api_key=${this.apiKey}`, {
+            method: 'DELETE'
+        }).then(res => res.json());
+
+        if (!data.success) {
+            throw new Error(data.error?.message);
+        }
+    }
 }

@@ -24,4 +24,5 @@ export = class Todite {
     public get(id: string): Promise<Todo>;
     public update(newTodoData: PartialTodo & { id: string; }): Promise<Todo>;
     public update(id: string, name?: string, completed?: boolean, date?: Date): Promise<Todo>;
+    public delete(id: string): Promise<void>;
 }
