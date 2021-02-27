@@ -17,4 +17,5 @@ export = class Todite {
 
     public create({ name, completed, date }: Todo): Promise<Todo>;
     public getAll(): Promise<Todo[]>;
+    public get(id: string): Promise<Todo>;
 }

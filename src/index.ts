@@ -61,4 +61,19 @@ export = class Todite {
         // Return the array like this so that `__v` isn't included (if you know a cleaner way to do this, feel free to submit a PR :D)
         return data.map(todo => ({ _id: todo._id, name: todo.name, completed: todo.completed, user: todo.user, date: todo.date }));
     }
+
+    public async get(id: string): Promise<Todo> {
+        const data: Todo & {
+            error?: ApiError;
+        } = await fetch(`https://todite.now.sh/api/v1/todo/${id}?api_key=${this.apiKey}`).then(res => res.json());
+
+        if (data.error) {
+            throw new Error(data.error.message);
+        }
+
+        if (data.date) data.date = new Date(data.date);
+
+        // Return the object like this so that `__v` isn't included (if you know a cleaner way to do this, feel free to submit a PR :D)
+        return { _id: data._id, name: data.name, completed: data.completed, user: data.user, date: data.date };
+    }
 }
