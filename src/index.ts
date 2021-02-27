@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-import { Todo } from '..';
+import { Todo, PartialTodo } from '..';
 
 interface ApiError {
     status: number;
@@ -66,6 +66,46 @@ export = class Todite {
         const data: Todo & {
             error?: ApiError;
         } = await fetch(`https://todite.now.sh/api/v1/todo/${id}?api_key=${this.apiKey}`).then(res => res.json());
+
+        if (data.error) {
+            throw new Error(data.error.message);
+        }
+
+        if (data.date) data.date = new Date(data.date);
+
+        // Return the object like this so that `__v` isn't included (if you know a cleaner way to do this, feel free to submit a PR :D)
+        return { _id: data._id, name: data.name, completed: data.completed, user: data.user, date: data.date };
+    }
+
+    // Disable linting for function override
+    // eslint-disable-next-line
+    public update(newTodoData: PartialTodo & { id: string; }): Promise<Todo>;
+    // Disable linting for function override
+    // eslint-disable-next-line
+    public update(id: string, name?: string, completed?: boolean, date?: Date): Promise<Todo>;
+    public async update(newTodoDataOrId: (PartialTodo & { id: string; }) | string, name?: string, completed?: boolean, date?: Date): Promise<Todo> {
+        let id: string;
+        if (typeof newTodoDataOrId === 'string') {
+            id = newTodoDataOrId;
+        } else {
+            if (!newTodoDataOrId.id && !newTodoDataOrId._id) throw new Error('id must be passed in as an argument');
+            
+            // At least one of these will always be defined
+            // eslint-disable-next-line
+            id = newTodoDataOrId.id || newTodoDataOrId._id!;
+
+            if (!name) name = newTodoDataOrId.name;
+            if (!completed) completed = newTodoDataOrId.completed;
+            if (!date) date = newTodoDataOrId.date;
+        }
+
+        const data: Todo & {
+            error?: ApiError;
+        } = await fetch(`https://todite.now.sh/api/v1/todo/${id}?api_key=${this.apiKey}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, completed, date })
+        }).then(res => res.json());
 
         if (data.error) {
             throw new Error(data.error.message);
