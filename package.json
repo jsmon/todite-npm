@@ -4,9 +4,10 @@
   "description": "Connect your application to Todite, a free to-do list app",
   "main": "dist/index.min.js",
   "browser": "dist/browser.min.js",
+  "bin": "dist/cli.min.js",
   "types": "index.d.ts",
   "scripts": {
-    "build": "tsc && terser dist/index.js -c -m --toplevel -o dist/index.min.js --source-map \"url='index.min.js.map', content='./dist/index.js.map'\" && terser dist/browser.js -c -m -o dist/browser.min.js --source-map \"url='browser.min.js.map', content='./dist/browser.js.map'\"",
+    "build": "tsc && terser dist/index.js -c -m --toplevel -o dist/index.min.js --source-map \"url='index.min.js.map', content='./dist/index.js.map'\" && terser dist/browser.js -c -m -o dist/browser.min.js --source-map \"url='browser.min.js.map', content='./dist/browser.js.map'\" && terser dist/cli.js -c -m --toplevel -o dist/cli.min.js --source-map \"url='cli.min.js.map', content='./dist/cli.js.map'\"",
     "test": "jest",
     "prepublishOnly": "npm run build",
     "lint": "eslint \"src/**\""
@@ -49,6 +50,7 @@
     "typescript": "^4.2.2"
   },
   "dependencies": {
+    "commander": "^7.1.0",
     "node-fetch": "^2.6.1"
   }
 }
