@@ -1,3 +1,6 @@
+// Turn `no-unused-vars` off because this is a declaration file
+/* eslint no-unused-vars: "off" */
+
 export interface Todo {
     _id: string;
     name: string;
