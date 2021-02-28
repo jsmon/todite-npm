@@ -124,4 +124,26 @@ program
         }
     });
 
+program
+    .command('delete')
+    .description('Delete a to-do')
+    .requiredOption('-a, --api-key <api-key>', 'Your Todite API Key [REQUIRED]')
+    .requiredOption('-id, --todo-id <todo-id>', 'The To-do ID [REQUIRED]')
+    .action(async (options: OptionValues) => {
+        try {
+            const apiKey: string = options.apiKey;
+            const id: string = options.todoId;
+            
+            const todite = new Todite(apiKey);
+
+            await todite.delete(id);
+
+            console.log('To-do successfully deleted');
+        } catch (err) {
+            console.error(err.message);
+
+            process.exit(1);
+        }
+    });
+
 program.parse(process.argv);
