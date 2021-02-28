@@ -6,8 +6,45 @@ import ToditeTypes from '..';
 // eslint-disable-next-line
 const Todite: new (apiKey: string) => ToditeTypes = require(`${__dirname}/index.min.js`);
 
-import { Command } from 'commander';
+import { Command, OptionValues } from 'commander';
+
+// Make the to-dos have good human readable table headings
+interface FormattedTodo {
+    ID: string;
+    Name: string;
+    Completed: '✓' | '×';
+    'Firebase User ID': string;
+    'Done by': string;
+}
 
 const program = new Command();
 
 program.version('0.1.0', '-v, --version');
+
+program
+    .command('get-all')
+    .description('Get all to-dos')
+    .requiredOption('-a, --api-key <api-key>', 'Your Todite API Key [REQUIRED]')
+    .action(async (options: OptionValues) => {
+        try {
+            const apiKey: string = options.apiKey;
+            const todite = new Todite(apiKey);
+
+            const todos = await todite.getAll();
+
+            const formattedTodos: FormattedTodo[] = todos.map(todo => {
+                const completed = todo.completed ? '✓' : '×';
+                const date = todo.date?.toLocaleDateString('en-GB', { hour: '2-digit', minute: '2-digit' }) || 'Whenever';
+
+                return { ID: todo._id, Name: todo.name, Completed: completed, 'Firebase User ID': todo.user, 'Done by': date };
+            });
+
+            console.table(formattedTodos);
+        } catch (err) {
+            console.error(err.message);
+
+            process.exit(1);
+        }
+    });
+
+program.parse(process.argv);
