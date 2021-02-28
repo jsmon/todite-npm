@@ -146,4 +146,47 @@ program
         }
     });
 
+program
+    .command('create')
+    .description('Create a new to-do')
+    .requiredOption('-a, --api-key <api-key>', 'Your Todite API Key [REQUIRED]')
+    .requiredOption('-n, --name <name>', 'The To-dos name [REQUIRED]')
+    .option('-c, --completed [completed]', 'Whether the to-do should be completed', undefined)
+    .option('-d, --date <date>', 'When the to-do needs to be done by (in ISO format)')
+    .action(async (options: OptionValues) => {
+        try {
+            const apiKey: string = options.apiKey;
+            const name: string = options.name;
+            
+            
+            const date = options.date ? new Date(options.date) : undefined;
+            
+            let completed = false;
+            if (options.completed) {
+                if (options.completed === 'true' || options.completed === true) completed = true;
+                else if (options.completed === 'false' || options.completed === false) completed = false;
+                else completed = false;
+            }
+
+            const todite = new Todite(apiKey);
+            const todo = await todite.create({
+                name,
+                completed,
+                date
+            });
+
+            const formattedCompleted = todo.completed ? '✓' : '×';
+            const formettedDate = todo.date?.toLocaleDateString('en-GB', { hour: '2-digit', minute: '2-digit' }) || 'Whenever';
+
+            const formattedTodo: FormattedTodo = { ID: todo._id, Name: todo.name, Completed: formattedCompleted, 'Firebase User ID': todo.user, 'Done by': formettedDate };
+
+            // Put it into an array for nicer formatting
+            console.table([formattedTodo]);
+        } catch (err) {
+            console.error(err.message);
+
+            process.exit(1);
+        }
+    });
+
 program.parse(process.argv);
