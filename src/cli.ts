@@ -47,4 +47,31 @@ program
         }
     });
 
+program
+    .command('get')
+    .description('Get one to-do')
+    .requiredOption('-a, --api-key <api-key>', 'Your Todite API Key [REQUIRED]')
+    .requiredOption('-id, --todo-id <todo-id>', 'The To-do ID [REQUIRED]')
+    .action(async (options: OptionValues) => {
+        try {
+            const apiKey: string = options.apiKey;
+            const id: string = options.todoId;
+            const todite = new Todite(apiKey);
+
+            const todo = await todite.get(id);
+
+            const formattedCompleted = todo.completed ? '✓' : '×';
+            const formettedDate = todo.date?.toLocaleDateString('en-GB', { hour: '2-digit', minute: '2-digit' }) || 'Whenever';
+
+            const formattedTodo: FormattedTodo = { ID: todo._id, Name: todo.name, Completed: formattedCompleted, 'Firebase User ID': todo.user, 'Done by': formettedDate };
+
+            // Put it into an array for nicer formatting
+            console.table([formattedTodo]);
+        } catch (err) {
+            console.error(err.message);
+
+            process.exit(1);
+        }
+    });
+
 program.parse(process.argv);
