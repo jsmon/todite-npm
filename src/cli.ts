@@ -74,4 +74,54 @@ program
         }
     });
 
+program
+    .command('update')
+    .description('Update a to-do')
+    .requiredOption('-a, --api-key <api-key>', 'Your Todite API Key [REQUIRED]')
+    .requiredOption('-id, --todo-id <todo-id>', 'The To-do ID [REQUIRED]')
+    .option('-n, --name <name>', 'The To-dos updated name')
+    .option('-c, --completed [completed]', 'Whether the updated to-do should be completed', undefined)
+    .option('-d, --date <date>', 'The to-dos updated date (in ISO format)')
+    .action(async (options: OptionValues) => {
+        try {
+            const apiKey: string = options.apiKey;
+            const id: string = options.todoId;
+            
+            const todite = new Todite(apiKey);
+            const todo = await todite.get(id);
+
+            const newName: string = options.name || todo.name;
+            const newDate = new Date(options.date || todo.date);
+
+            let newCompleted: boolean;
+
+            if (options.completed) {
+                if (options.completed === 'true' || options.completed === true) newCompleted = true;
+                else if (options.completed === 'false' || options.completed === false) newCompleted = false;
+                else newCompleted = todo.completed;
+            } else {
+                newCompleted = todo.completed;
+            }
+
+            const updatedTodo = await todite.update({
+                id,
+                name: newName,
+                completed: newCompleted,
+                date: newDate
+            });
+
+            const formattedCompleted = updatedTodo.completed ? '✓' : '×';
+            const formettedDate = updatedTodo.date?.toLocaleDateString('en-GB', { hour: '2-digit', minute: '2-digit' }) || 'Whenever';
+
+            const formattedTodo: FormattedTodo = { ID: updatedTodo._id, Name: updatedTodo.name, Completed: formattedCompleted, 'Firebase User ID': updatedTodo.user, 'Done by': formettedDate };
+
+            // Put it into an array for nicer formatting
+            console.table([formattedTodo]);
+        } catch (err) {
+            console.error(err.message);
+
+            process.exit(1);
+        }
+    });
+
 program.parse(process.argv);
