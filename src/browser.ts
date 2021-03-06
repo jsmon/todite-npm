@@ -36,7 +36,7 @@ class Todite {
             throw new Error('Invalid API Key');
         }
 
-        fetch(`https://todite.now.sh/api/v1/user?api_key=${this.apiKey}`)
+        fetch(`https://todite.vercel.app/api/v1/user?api_key=${this.apiKey}`)
             .then(res => res.json())
             .then((user: {
                 error?: ApiError;
@@ -50,7 +50,7 @@ class Todite {
     public async create({ name, completed, date }: Todo): Promise<Todo> {
         const data: Todo & {
             error?: ApiError;
-        } = await fetch(`https://todite.now.sh/api/v1/todos?api_key=${this.apiKey}`, {
+        } = await fetch(`https://todite.vercel.app/api/v1/todos?api_key=${this.apiKey}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, completed, date })
@@ -68,7 +68,7 @@ class Todite {
     public async getAll(): Promise<Todo[]> {
         const data: Todo[] & {
             error?: ApiError;
-        } = await fetch(`https://todite.now.sh/api/v1/todos?api_key=${this.apiKey}`).then(res => res.json());
+        } = await fetch(`https://todite.vercel.app/api/v1/todos?api_key=${this.apiKey}`).then(res => res.json());
 
         if (data.error) {
             throw new Error(data.error.message);
@@ -83,7 +83,7 @@ class Todite {
     public async get(id: string): Promise<Todo> {
         const data: Todo & {
             error?: ApiError;
-        } = await fetch(`https://todite.now.sh/api/v1/todo/${id}?api_key=${this.apiKey}`).then(res => res.json());
+        } = await fetch(`https://todite.vercel.app/api/v1/todo/${id}?api_key=${this.apiKey}`).then(res => res.json());
 
         if (data.error) {
             throw new Error(data.error.message);
@@ -117,7 +117,7 @@ class Todite {
 
         const data: Todo & {
             error?: ApiError;
-        } = await fetch(`https://todite.now.sh/api/v1/todo/${id}?api_key=${this.apiKey}`, {
+        } = await fetch(`https://todite.vercel.app/api/v1/todo/${id}?api_key=${this.apiKey}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, completed, date })
@@ -136,7 +136,7 @@ class Todite {
         const data: {
             success?: true;
             error?: ApiError;
-        } = await fetch(`https://todite.now.sh/api/v1/todo/${id}?api_key=${this.apiKey}`, {
+        } = await fetch(`https://todite.vercel.app/api/v1/todo/${id}?api_key=${this.apiKey}`, {
             method: 'DELETE'
         }).then(res => res.json());
 
