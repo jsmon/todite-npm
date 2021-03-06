@@ -3,4 +3,4 @@
 
 **Warning: This is not a stable version**
 
-The full documentation for the package is available at [todite.vercel.app/docs/npm/v1.0](https://todite.vercel.app/docs/npm/v1.0), and the documentation for the CLI is available at [todite.vercel.app/docs/cli/v1.0](https://todite.vercel.app/docs/cli/v1.0)
+The full documentation for the package is available at [todite.vercel.app/docs/npm/v0.1](https://todite.vercel.app/docs/npm/v0.1), and the documentation for the CLI is available at [todite.vercel.app/docs/cli/v0.1](https://todite.vercel.app/docs/cli/v0.1)

@@ -16,7 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/jsmon/todite-npm.git"
   },
-  "homepage": "https://todite.vercel.app/docs/npm/v1.0",
+  "homepage": "https://todite.vercel.app/docs/npm/v0.1",
   "keywords": [
     "todite",
     "to-do",
