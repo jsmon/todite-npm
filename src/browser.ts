@@ -85,12 +85,14 @@ class Todite {
         return data.map(todo => ({ _id: todo._id, name: todo.name, completed: todo.completed, user: todo.user, date: todo.date }));
     }
 
-    public async get(id: string): Promise<Todo> {
+    public async get(id: string): Promise<Todo | null> {
         const data: Todo & {
             error?: ApiError;
         } = await fetch(`https://todite.vercel.app/api/v1/todo/${id}?api_key=${this.#apiKey}`).then(res => res.json());
 
         if (data.error) {
+            if (data.error.status === 404) return null;
+
             throw new Error(data.error.message);
         }
 

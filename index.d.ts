@@ -41,7 +41,7 @@ export = class Todite {
      * Get a to-do
      * @param id The ID of the to-do you want to get
      */
-    public get(id: string): Promise<Todo>;
+    public get(id: string): Promise<Todo | null>;
     /**
      * Update a to-do
      * @param newTodoData The to-dos new data
