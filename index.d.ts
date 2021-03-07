@@ -23,7 +23,7 @@ export type PartialTodo = {
 /** The main `Todite` class */
 export = class Todite {
     /** The user's API key */
-    private apiKey: string;
+    private #apiKey: string;
     /** The regular expression that validates API keys */
     public apiKeyRegex: RegExp;
 
