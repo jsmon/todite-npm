@@ -60,6 +60,11 @@ program
 
             const todo = await todite.get(id);
 
+            if (!todo) {
+                console.log('Could not find to-do with that ID.');
+                return;
+            }
+
             const formattedCompleted = todo.completed ? '✓' : '×';
             const formettedDate = todo.date?.toLocaleDateString('en-GB', { hour: '2-digit', minute: '2-digit' }) || 'Whenever';
 
@@ -89,6 +94,11 @@ program
             
             const todite = new Todite(apiKey);
             const todo = await todite.get(id);
+
+            if (!todo) {
+                console.log('Could not find to-do with that ID.');
+                return;
+            }
 
             const newName: string = options.name || todo.name;
             const newDate = new Date(options.date || todo.date);
