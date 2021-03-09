@@ -21,7 +21,15 @@
     "todite",
     "to-do",
     "todo",
-    "todolist"
+    "todolist",
+    "to-dolist",
+    "to-do-list",
+    "cli",
+    "command-line-interface",
+    "front-end",
+    "frontend",
+    "back-end",
+    "backend"
   ],
   "author": {
     "name": "James Simon",
