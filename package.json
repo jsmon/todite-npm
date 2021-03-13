@@ -1,6 +1,6 @@
 {
   "name": "todite",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Connect your application to Todite, a free to-do list app",
   "main": "dist/index.min.js",
   "browser": "dist/browser.min.js",
