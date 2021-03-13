@@ -19,7 +19,9 @@ interface FormattedTodo {
 
 const program = new Command();
 
-program.version('0.1.0', '-v, --version');
+program
+    .version('0.1.0', '-v, --version')
+    .name('todite');
 
 program
     .command('get-all')
