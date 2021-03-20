@@ -10,7 +10,7 @@ const todite = new Todite('00000000-0000-0000-0000-000000000000');
 test('The todos return the correct values', async () => {
     const now = new Date();
 
-    // Use `Promise.all()` so that it takes as little time as possible
+    // Use `Promise.all()` so that it runs all the async functions at the same time, making it takes as little time as possible
     // Read about it here if you want
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
     const [todos, todo, newTodo, updatedTodo] = await Promise.all([
