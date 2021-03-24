@@ -1,7 +1,8 @@
 import ToditeTypes from '..';
 
 // Using the `require` function so TypeScript doesn't tell us '`../dist/index.min.js` doesn't exist'
-// eslint-disable-next-line
+
+// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-var-requires
 const Todite: new (apiKey: string) => ToditeTypes = require('../dist/index.min.js');
 
 // This is the API Key of the test to-do

@@ -26,7 +26,8 @@ interface ApiError {
 }
 
 // Since this is to be used in the browser, we aren't to export anything because global variables (and classes) will be available anyway
-// eslint-disable-next-line
+
+// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 class Todite {
     #apiKey: string;
     public apiKeyRegex = /^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$/;
@@ -103,10 +104,10 @@ class Todite {
     }
 
     // Disable linting for function override
-    // eslint-disable-next-line
+    // eslint-disable-next-line no-unused-vars
     public update(newTodoData: PartialTodo & { id: string; }): Promise<Todo>;
     // Disable linting for function override
-    // eslint-disable-next-line
+    // eslint-disable-next-line no-unused-vars
     public update(id: string, name?: string, completed?: boolean, date?: Date): Promise<Todo>;
     public async update(newTodoDataOrId: (PartialTodo & { id: string; }) | string, name?: string, completed?: boolean, date?: Date): Promise<Todo> {
         let id: string;
@@ -116,7 +117,7 @@ class Todite {
             if (!newTodoDataOrId.id && !newTodoDataOrId._id) throw new Error('id must be passed in as an argument');
             
             // At least one of these will always be defined
-            // eslint-disable-next-line
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             id = newTodoDataOrId.id || newTodoDataOrId._id!;
 
             if (!name) name = newTodoDataOrId.name;

@@ -1,5 +1,5 @@
 // Turn `no-unused-vars` off because this is a declaration file
-/* eslint no-unused-vars: "off" */
+/* eslint no-unused-vars: off */
 
 /** A to-do object */
 export interface Todo {
