@@ -1,6 +1,6 @@
 {
   "name": "todite",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Connect your application to Todite, a free to-do list app",
   "main": "dist/index.min.js",
   "browser": "dist/browser.min.js",
@@ -16,7 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/jsmon/todite-npm.git"
   },
-  "homepage": "https://todite.vercel.app/docs/npm/v0.1",
+  "homepage": "https://todite.vercel.app/docs/npm/v1.0",
   "keywords": [
     "todite",
     "to-do",
