@@ -2,6 +2,7 @@
 Here is a list of changes made to this package
 
 ## v1.0.0
+* Updated test - [`00e40dc`](https://github.com/jsmon/todite-npm/commit/00e40dcf67687fe9b140b255fdf50b3ec70fcbaa)
 * Bump package version to 1.0.0 - [`a714a2a`](https://github.com/jsmon/todite-npm/commit/a714a2a30933132a48becbd470e26fa6c6633fca)
 * Updated lint script - [`b954389`](https://github.com/jsmon/todite-npm/commit/b9543897cf714a98b4b97dfa0eeb4ea5d0957ad1)
 * Updated my wesite link - [`56e84c4`](https://github.com/jsmon/todite-npm/commit/56e84c4b5f33958fc4b2ea6fdfba9bb13f7e98b1)
