@@ -47,6 +47,6 @@ test('The todos return the correct values', async () => {
         name: 'idk',
         completed: false,
         user: '0000000000000000000000000000',
-        date: new Date(2038, 0, 19, 3, 14, 7)
+        date: expect.any(Date)
     });
 });
